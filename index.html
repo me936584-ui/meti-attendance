@@ -7,21 +7,19 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg:        #0a0e1a;
-      --surface:   #111827;
-      --border:    #1e2d45;
-      --accent:    #0ea5e9;
-      --accent2:   #38bdf8;
-      --success:   #22c55e;
-      --error:     #ef4444;
-      --text:      #e2e8f0;
-      --muted:     #64748b;
-      --mono:      'IBM Plex Mono', monospace;
-      --sans:      'IBM Plex Sans', sans-serif;
+      --bg:      #0a0e1a;
+      --surface: #111827;
+      --border:  #1e2d45;
+      --accent:  #0ea5e9;
+      --accent2: #38bdf8;
+      --success: #22c55e;
+      --error:   #ef4444;
+      --text:    #e2e8f0;
+      --muted:   #64748b;
+      --mono:    'IBM Plex Mono', monospace;
+      --sans:    'IBM Plex Sans', sans-serif;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
       font-family: var(--sans);
       background: var(--bg);
@@ -31,411 +29,192 @@
       align-items: center;
       justify-content: center;
       padding: 20px;
-      overflow-x: hidden;
     }
-
-    /* Background grid */
     body::before {
       content: '';
-      position: fixed;
-      inset: 0;
+      position: fixed; inset: 0;
       background-image:
         linear-gradient(rgba(14,165,233,0.04) 1px, transparent 1px),
         linear-gradient(90deg, rgba(14,165,233,0.04) 1px, transparent 1px);
       background-size: 40px 40px;
-      pointer-events: none;
-      z-index: 0;
+      pointer-events: none; z-index: 0;
     }
-
-    /* Glow blob */
     body::after {
       content: '';
       position: fixed;
-      top: -200px;
-      left: 50%;
+      top: -200px; left: 50%;
       transform: translateX(-50%);
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(14,165,233,0.08) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 0;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(14,165,233,0.07) 0%, transparent 70%);
+      pointer-events: none; z-index: 0;
     }
-
     .wrapper {
-      width: 100%;
-      max-width: 420px;
-      position: relative;
-      z-index: 1;
+      width: 100%; max-width: 420px;
+      position: relative; z-index: 1;
       animation: fadeUp 0.5s ease both;
     }
-
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
+      from { opacity:0; transform:translateY(20px); }
+      to   { opacity:1; transform:translateY(0); }
     }
-
-    /* ── Header ── */
-    .header {
-      text-align: center;
-      margin-bottom: 28px;
-    }
-
+    .header { text-align:center; margin-bottom:24px; }
     .logo-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+      display: inline-flex; align-items:center; gap:8px;
       background: rgba(14,165,233,0.1);
-      border: 1px solid rgba(14,165,233,0.25);
-      border-radius: 999px;
-      padding: 6px 16px;
-      margin-bottom: 16px;
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--accent2);
-      letter-spacing: 2px;
-      text-transform: uppercase;
+      border: 1px solid rgba(14,165,233,0.2);
+      border-radius: 999px; padding: 5px 14px;
+      margin-bottom: 14px;
+      font-family: var(--mono); font-size:10px;
+      color: var(--accent2); letter-spacing:2px; text-transform:uppercase;
     }
-
     .logo-badge::before {
-      content: '';
-      width: 6px; height: 6px;
-      background: var(--success);
-      border-radius: 50%;
+      content:''; width:6px; height:6px;
+      background: var(--success); border-radius:50%;
       box-shadow: 0 0 8px var(--success);
-      animation: pulse 2s ease-in-out infinite;
+      animation: blink 2s ease-in-out infinite;
     }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
-    }
-
-    h1 {
-      font-size: 28px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      margin-bottom: 6px;
-    }
-
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    h1 { font-size:26px; font-weight:700; letter-spacing:-0.5px; margin-bottom:5px; }
     h1 span { color: var(--accent); }
-
-    .subtitle {
-      font-size: 13px;
-      color: var(--muted);
-      font-family: var(--mono);
-    }
-
-    /* ── Card ── */
+    .subtitle { font-size:12px; color:var(--muted); font-family:var(--mono); }
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 28px;
-      margin-bottom: 12px;
-      position: relative;
-      overflow: hidden;
+      border-radius: 14px; padding:24px;
+      margin-bottom:12px;
+      position:relative; overflow:hidden;
     }
-
     .card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 1px;
+      content:'';
+      position:absolute; top:0; left:0; right:0; height:1px;
       background: linear-gradient(90deg, transparent, rgba(14,165,233,0.4), transparent);
     }
-
-    /* ── Field ── */
-    .field { margin-bottom: 20px; }
-    .field:last-child { margin-bottom: 0; }
-
+    .mode-toggle {
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:6px; margin-bottom:20px;
+      background: rgba(0,0,0,0.3);
+      border-radius:10px; padding:4px;
+    }
+    .mode-btn {
+      padding:9px; border:none; border-radius:7px;
+      background:transparent; color:var(--muted);
+      font-family:var(--mono); font-size:11px; font-weight:700;
+      letter-spacing:1px; cursor:pointer;
+      transition:all 0.2s; text-transform:uppercase;
+    }
+    .mode-btn.active {
+      background: var(--surface); color:var(--accent2);
+      border: 1px solid rgba(14,165,233,0.3);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    .field { margin-bottom:18px; }
     label {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-family: var(--mono);
-      font-size: 10px;
-      font-weight: 600;
-      color: var(--muted);
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 10px;
+      display:flex; align-items:center; gap:6px;
+      font-family:var(--mono); font-size:10px; font-weight:600;
+      color:var(--muted); letter-spacing:2px; text-transform:uppercase;
+      margin-bottom:8px;
     }
-
-    label .dot {
-      width: 4px; height: 4px;
-      background: var(--accent);
-      border-radius: 50%;
-    }
-
-    /* ── Shift buttons ── */
-    .shift-group {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-    }
-
-    .shift-btn {
-      padding: 10px 6px;
-      background: transparent;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--muted);
-      font-family: var(--mono);
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      text-align: center;
-      transition: all 0.2s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .shift-btn::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(14,165,233,0.06);
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
-
-    .shift-btn:hover {
-      border-color: rgba(14,165,233,0.4);
-      color: var(--accent2);
-    }
-
-    .shift-btn:hover::after { opacity: 1; }
-
-    .shift-btn.active {
-      background: rgba(14,165,233,0.12);
-      border-color: var(--accent);
-      color: var(--accent2);
-      box-shadow: 0 0 16px rgba(14,165,233,0.15), inset 0 0 16px rgba(14,165,233,0.05);
-    }
-
-    /* ── Input ── */
-    .input-wrap {
-      position: relative;
-    }
-
-    .input-wrap .prefix {
-      position: absolute;
-      left: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-family: var(--mono);
-      font-size: 13px;
-      color: var(--accent);
-      pointer-events: none;
-      opacity: 0.6;
-    }
-
+    label .dot { width:4px; height:4px; background:var(--accent); border-radius:50%; }
     input[type="text"] {
-      width: 100%;
-      padding: 12px 14px 12px 14px;
+      width:100%; padding:11px 14px;
       background: rgba(255,255,255,0.03);
       border: 1px solid var(--border);
-      border-radius: 8px;
-      font-family: var(--mono);
-      font-size: 14px;
-      color: var(--text);
-      transition: all 0.2s;
-      outline: none;
+      border-radius:8px; font-family:var(--mono);
+      font-size:14px; color:var(--text);
+      transition:all 0.2s; outline:none;
     }
-
     input[type="text"]:focus {
-      border-color: var(--accent);
+      border-color:var(--accent);
       background: rgba(14,165,233,0.04);
       box-shadow: 0 0 0 3px rgba(14,165,233,0.08);
     }
-
-    input[type="text"]::placeholder {
-      color: var(--muted);
-      opacity: 0.5;
+    input[type="text"]::placeholder { color:var(--muted); opacity:0.5; }
+    .hint { font-family:var(--mono); font-size:10px; color:var(--muted); margin-top:6px; opacity:0.6; }
+    .autocomplete-wrap { position:relative; }
+    .suggestions {
+      display:none; position:absolute;
+      top:calc(100% + 4px); left:0; right:0;
+      background:#1a2235;
+      border: 1px solid rgba(14,165,233,0.25);
+      border-radius:8px; overflow:hidden;
+      z-index:100; box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+      max-height: 240px; overflow-y: auto;
     }
-
-    .hint {
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--muted);
-      margin-top: 8px;
-      opacity: 0.7;
+    .suggestions.open { display:block; }
+    .suggestion-item {
+      padding:10px 14px; font-family:var(--mono); font-size:12px;
+      color:var(--text); cursor:pointer;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      transition:background 0.15s;
     }
-
-    /* ── Submit button ── */
+    .suggestion-item:last-child { border-bottom:none; }
+    .suggestion-item:hover, .suggestion-item.focused {
+      background: rgba(14,165,233,0.1); color:var(--accent2);
+    }
+    .s-name { font-weight:600; }
+    .s-pc { font-size:10px; color:var(--muted); margin-top:2px; }
+    .no-results { padding:12px 14px; font-family:var(--mono); font-size:11px; color:var(--muted); text-align:center; }
     #submitBtn {
-      width: 100%;
-      padding: 14px;
+      width:100%; padding:13px;
       background: linear-gradient(135deg, #0369a1, #0ea5e9);
-      border: none;
-      border-radius: 8px;
-      color: #fff;
-      font-family: var(--mono);
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: all 0.2s;
-      position: relative;
-      overflow: hidden;
+      border:none; border-radius:8px; color:#fff;
+      font-family:var(--mono); font-size:12px; font-weight:700;
+      letter-spacing:2px; text-transform:uppercase;
+      cursor:pointer; transition:all 0.2s;
+      overflow:hidden; position:relative; margin-top:20px;
     }
-
     #submitBtn::before {
-      content: '';
-      position: absolute;
-      top: 0; left: -100%;
-      width: 100%; height: 100%;
+      content:''; position:absolute; top:0; left:-100%;
+      width:100%; height:100%;
       background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-      transition: left 0.4s;
+      transition:left 0.4s;
     }
-
-    #submitBtn:hover:not(:disabled)::before { left: 100%; }
-
-    #submitBtn:hover:not(:disabled) {
-      box-shadow: 0 4px 20px rgba(14,165,233,0.35);
-      transform: translateY(-1px);
-    }
-
-    #submitBtn:active:not(:disabled) { transform: translateY(0); }
-
-    #submitBtn:disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    /* ── Spinner ── */
+    #submitBtn:hover:not(:disabled)::before { left:100%; }
+    #submitBtn:hover:not(:disabled) { box-shadow: 0 4px 20px rgba(14,165,233,0.35); transform:translateY(-1px); }
+    #submitBtn:disabled { opacity:0.4; cursor:not-allowed; transform:none; }
     .spinner {
-      display: none;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 14px;
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--muted);
+      display:none; align-items:center; justify-content:center;
+      gap:10px; padding:14px;
+      font-family:var(--mono); font-size:11px; color:var(--muted);
     }
-
-    .spin-dots {
-      display: flex;
-      gap: 4px;
-    }
-
+    .spin-dots { display:flex; gap:4px; }
     .spin-dots span {
-      width: 5px; height: 5px;
-      background: var(--accent);
-      border-radius: 50%;
-      animation: bounce 1s ease-in-out infinite;
+      width:5px; height:5px; background:var(--accent);
+      border-radius:50%; animation:bounce 1s ease-in-out infinite;
     }
-
-    .spin-dots span:nth-child(2) { animation-delay: 0.15s; }
-    .spin-dots span:nth-child(3) { animation-delay: 0.3s; }
-
-    @keyframes bounce {
-      0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
-      40% { transform: scale(1); opacity: 1; }
-    }
-
-    /* ── Result card ── */
+    .spin-dots span:nth-child(2) { animation-delay:0.15s; }
+    .spin-dots span:nth-child(3) { animation-delay:0.3s; }
+    @keyframes bounce { 0%,80%,100%{transform:scale(0.6);opacity:0.4} 40%{transform:scale(1);opacity:1} }
     .result-card {
-      display: none;
-      border-radius: 12px;
-      padding: 20px;
+      display:none; border-radius:10px; padding:18px;
       animation: fadeUp 0.3s ease both;
     }
-
-    .result-card.success {
-      background: rgba(34,197,94,0.06);
-      border: 1px solid rgba(34,197,94,0.2);
-    }
-
-    .result-card.error {
-      background: rgba(239,68,68,0.06);
-      border: 1px solid rgba(239,68,68,0.2);
-    }
-
+    .result-card.success { background: rgba(34,197,94,0.06); border: 1px solid rgba(34,197,94,0.2); }
+    .result-card.error   { background: rgba(239,68,68,0.06);  border: 1px solid rgba(239,68,68,0.2); }
     .result-title {
-      font-family: var(--mono);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      font-family:var(--mono); font-size:11px; font-weight:700;
+      letter-spacing:2px; text-transform:uppercase; margin-bottom:12px;
     }
-
-    .result-card.success .result-title { color: var(--success); }
-    .result-card.error   .result-title { color: var(--error); }
-
-    .result-grid {
-      display: grid;
-      gap: 1px;
-      background: rgba(255,255,255,0.04);
-      border-radius: 6px;
-      overflow: hidden;
-    }
-
-    .result-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 8px 12px;
-      background: var(--surface);
-    }
-
-    .rk {
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--muted);
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    .rv {
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--text);
-      text-align: right;
-    }
-
+    .result-card.success .result-title { color:var(--success); }
+    .result-card.error   .result-title { color:var(--error); }
+    .result-grid { display:grid; gap:1px; background:rgba(255,255,255,0.04); border-radius:6px; overflow:hidden; }
+    .result-row { display:flex; justify-content:space-between; align-items:center; padding:8px 12px; background:var(--surface); }
+    .rk { font-family:var(--mono); font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:1px; }
+    .rv { font-family:var(--mono); font-size:12px; color:var(--text); text-align:right; }
     .badge-p {
-      background: rgba(34,197,94,0.15);
-      color: var(--success);
+      background: rgba(34,197,94,0.15); color:var(--success);
       border: 1px solid rgba(34,197,94,0.3);
-      font-family: var(--mono);
-      font-weight: 700;
-      font-size: 13px;
-      padding: 2px 12px;
-      border-radius: 4px;
-      letter-spacing: 2px;
+      font-family:var(--mono); font-weight:700; font-size:13px;
+      padding:2px 10px; border-radius:4px; letter-spacing:2px;
     }
-
-    .error-msg {
-      font-family: var(--mono);
-      font-size: 12px;
-      color: #fca5a5;
-      line-height: 1.6;
-    }
-
-    /* ── Footer ── */
-    .footer {
-      text-align: center;
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--muted);
-      opacity: 0.5;
-      margin-top: 16px;
-      letter-spacing: 1px;
-    }
+    .error-msg { font-family:var(--mono); font-size:12px; color:#fca5a5; line-height:1.6; }
+    .footer { text-align:center; font-family:var(--mono); font-size:10px; color:var(--muted); opacity:0.4; margin-top:14px; letter-spacing:1px; }
+    .section { display:none; }
+    .section.active { display:block; }
   </style>
 </head>
 <body>
-
 <div class="wrapper">
-
   <div class="header">
     <div class="logo-badge">METI · SYSTEM ONLINE</div>
     <h1>Attend<span>ance</span></h1>
@@ -443,121 +222,217 @@
   </div>
 
   <div class="card">
-
-    <div class="field">
-      <label><span class="dot"></span> Shift</label>
-      <div class="shift-group">
-        <button class="shift-btn" onclick="selectShift('Morning', this)">Morning</button>
-        <button class="shift-btn" onclick="selectShift('Night', this)">Night</button>
-        <button class="shift-btn" onclick="selectShift('OverNight', this)">O.Night</button>
-      </div>
+    <div class="mode-toggle">
+      <button class="mode-btn active" onclick="setMode('normal',this)">⚡ Flash ID</button>
+      <button class="mode-btn"        onclick="setMode('buffer',this)">🔄 Buffer</button>
     </div>
 
-    <div class="field">
-      <label><span class="dot"></span> Flash ID</label>
-      <div class="input-wrap">
+    <div class="section active" id="normalSection">
+      <div class="field">
+        <label><span class="dot"></span> Flash ID</label>
         <input type="text" id="flashId"
                placeholder="me216759@meti.ai"
                autocomplete="off" autocorrect="off"
                autocapitalize="none" spellcheck="false"
                onkeydown="if(event.key==='Enter') submit()">
+        <div class="hint">// format: me + 6 digits + @meti.ai</div>
       </div>
-      <div class="hint">// format: me + 6 digits + @meti.ai</div>
     </div>
 
-    <button id="submitBtn" onclick="submit()">
-      ▶ &nbsp; Record Attendance
-    </button>
-
-    <div class="spinner" id="spinner">
-      <div class="spin-dots">
-        <span></span><span></span><span></span>
+    <div class="section" id="bufferSection">
+      <div class="field">
+        <label><span class="dot"></span> Name</label>
+        <div class="autocomplete-wrap">
+          <input type="text" id="bufferName"
+                 placeholder="Start typing your name..."
+                 autocomplete="off" autocorrect="off"
+                 autocapitalize="none" spellcheck="false"
+                 oninput="onBufferInput(this.value)"
+                 onkeydown="onBufferKey(event)">
+          <div class="suggestions" id="suggestions"></div>
+        </div>
+        <div class="hint">// type 2+ letters to search</div>
       </div>
+    </div>
+
+    <button id="submitBtn" onclick="submit()">▶ &nbsp; Record Attendance</button>
+    <div class="spinner" id="spinner">
+      <div class="spin-dots"><span></span><span></span><span></span></div>
       Processing...
     </div>
-
   </div>
 
   <div class="result-card" id="result"></div>
-
-  <div class="footer">METI · Attendance System v2.0</div>
-
+  <div class="footer">METI · Attendance System v2.1</div>
 </div>
 
 <script>
   const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzRttM7jyk8bd4JsxPfljOhBSHTPdL2OaXB0HMC3CtZGQVQ7n91cKRDrgxCWeHWUkLx/exec";
 
-  let selectedShift = "";
+  let currentMode    = "normal";
+  let selectedBuffer = null;
+  let searchTimeout  = null;
+  let focusedIdx     = -1;
 
-  function selectShift(shift, el) {
-    selectedShift = shift;
-    document.querySelectorAll(".shift-btn").forEach(b => b.classList.remove("active"));
+  function setMode(mode, el) {
+    currentMode = mode;
+    document.querySelectorAll(".mode-btn").forEach(b => b.classList.remove("active"));
     el.classList.add("active");
+    document.getElementById("normalSection").classList.toggle("active", mode === "normal");
+    document.getElementById("bufferSection").classList.toggle("active", mode === "buffer");
+    document.getElementById("result").style.display = "none";
+    selectedBuffer = null;
+    setTimeout(() => {
+      if (mode === "normal") document.getElementById("flashId").focus();
+      else document.getElementById("bufferName").focus();
+    }, 50);
   }
 
-  async function submit() {
-    const flashId = document.getElementById("flashId").value.trim().toLowerCase();
-    const result  = document.getElementById("result");
-    const spinner = document.getElementById("spinner");
-    const btn     = document.getElementById("submitBtn");
+  function onBufferInput(val) {
+    selectedBuffer = null;
+    clearTimeout(searchTimeout);
+    if (val.trim().length < 2) { closeSuggestions(); return; }
+    searchTimeout = setTimeout(() => doSearch(val.trim()), 300);
+  }
 
-    result.style.display = "none";
-    result.className = "result-card";
+  function doSearch(query) {
+    const box = document.getElementById("suggestions");
+    box.innerHTML = '<div class="no-results">Searching...</div>';
+    box.classList.add("open");
+    focusedIdx = -1;
 
-    if (!selectedShift) { showError("Select a shift first."); return; }
-    if (!flashId)        { showError("Flash ID cannot be empty."); return; }
-
-    btn.style.display     = "none";
-    spinner.style.display = "flex";
-
-    try {
-      const res = await fetch(WEB_APP_URL, {
+    if (typeof google !== "undefined" && google.script) {
+      google.script.run
+        .withSuccessHandler(renderSuggestions)
+        .withFailureHandler(err => { box.innerHTML = '<div class="no-results">Search failed</div>'; })
+        .getBufferSuggestions(query);
+    } else {
+      fetch(WEB_APP_URL, {
         method: "POST",
         headers: { "Content-Type": "text/plain" },
-        body: JSON.stringify({ shift: selectedShift, flashId }),
-      });
-
-      const data = await res.json();
-
-      spinner.style.display = "none";
-      btn.style.display     = "block";
-
-      if (data.success) {
-        const d = data.data;
-        result.className = "result-card success";
-        result.innerHTML = `
-          <div class="result-title">✓ &nbsp; Attendance Recorded</div>
-          <div class="result-grid">
-            <div class="result-row"><span class="rk">Name</span>     <span class="rv">${d.name}</span></div>
-            <div class="result-row"><span class="rk">Flash ID</span> <span class="rv">${d.flashId}</span></div>
-            <div class="result-row"><span class="rk">Shift</span>    <span class="rv">${d.shift}</span></div>
-            <div class="result-row"><span class="rk">Room</span>     <span class="rv">${d.room}</span></div>
-            <div class="result-row"><span class="rk">PC No.</span>   <span class="rv">${d.pcNo}</span></div>
-            <div class="result-row"><span class="rk">Status</span>   <span class="rv"><span class="badge-p">${d.marked}</span></span></div>
-          </div>
-        `;
-        result.style.display = "block";
-        document.getElementById("flashId").value = "";
-        document.getElementById("flashId").focus();
-      } else {
-        showError(data.error || "Unknown error.");
-      }
-
-    } catch (err) {
-      spinner.style.display = "none";
-      btn.style.display     = "block";
-      showError("Network error: " + err.message);
+        body: JSON.stringify({ type: "search", query }),
+      })
+      .then(r => r.json())
+      .then(renderSuggestions)
+      .catch(() => { box.innerHTML = '<div class="no-results">Search failed</div>'; });
     }
   }
 
+  function renderSuggestions(res) {
+    const box = document.getElementById("suggestions");
+    if (!res.success || !res.results || !res.results.length) {
+      box.innerHTML = '<div class="no-results">No results found</div>';
+      return;
+    }
+    box.innerHTML = res.results.map((p, i) => `
+      <div class="suggestion-item" data-idx="${i}"
+           data-name="${p.name}" data-pc="${p.pc}" data-loc="${p.location}"
+           onclick="selectSuggestion(this)">
+        <div class="s-name">${p.name}</div>
+        <div class="s-pc">${p.location} &middot; ${p.pc}</div>
+      </div>
+    `).join("");
+  }
+
+  function selectSuggestion(el) {
+    selectedBuffer = { name: el.dataset.name, pc: el.dataset.pc, location: el.dataset.loc };
+    document.getElementById("bufferName").value = selectedBuffer.name;
+    closeSuggestions();
+  }
+
+  function closeSuggestions() {
+    const box = document.getElementById("suggestions");
+    box.classList.remove("open");
+    box.innerHTML = "";
+    focusedIdx = -1;
+  }
+
+  function onBufferKey(e) {
+    const items = document.querySelectorAll(".suggestion-item");
+    if (!items.length) return;
+    if (e.key === "ArrowDown") { e.preventDefault(); focusedIdx = Math.min(focusedIdx+1, items.length-1); updateFocus(items); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); focusedIdx = Math.max(focusedIdx-1, 0); updateFocus(items); }
+    else if (e.key === "Enter") { e.preventDefault(); if (focusedIdx >= 0) selectSuggestion(items[focusedIdx]); else submit(); }
+    else if (e.key === "Escape") closeSuggestions();
+  }
+
+  function updateFocus(items) {
+    items.forEach(i => i.classList.remove("focused"));
+    if (focusedIdx >= 0) items[focusedIdx].classList.add("focused");
+  }
+
+  document.addEventListener("click", e => {
+    if (!e.target.closest(".autocomplete-wrap")) closeSuggestions();
+  });
+
+  function submit() {
+    document.getElementById("result").style.display = "none";
+
+    if (currentMode === "normal") {
+      const flashId = document.getElementById("flashId").value.trim().toLowerCase();
+      if (!flashId) { showError("Flash ID cannot be empty."); return; }
+      setLoading(true);
+      if (typeof google !== "undefined" && google.script) {
+        google.script.run.withSuccessHandler(handleResult).withFailureHandler(handleErr).submitAttendance(flashId);
+      } else {
+        fetch(WEB_APP_URL, { method:"POST", headers:{"Content-Type":"text/plain"}, body: JSON.stringify({ flashId }) })
+        .then(r => r.json()).then(handleResult).catch(handleErr);
+      }
+    } else {
+      if (!selectedBuffer) { showError("Please select your name from the suggestions."); return; }
+      setLoading(true);
+      if (typeof google !== "undefined" && google.script) {
+        google.script.run.withSuccessHandler(handleResult).withFailureHandler(handleErr)
+          .submitBufferAttendance(selectedBuffer.name, selectedBuffer.pc);
+      } else {
+        fetch(WEB_APP_URL, { method:"POST", headers:{"Content-Type":"text/plain"},
+          body: JSON.stringify({ type:"buffer", name: selectedBuffer.name, pc: selectedBuffer.pc }) })
+        .then(r => r.json()).then(handleResult).catch(handleErr);
+      }
+    }
+  }
+
+  function handleResult(res) {
+    setLoading(false);
+    if (res.success) {
+      const d = res.data;
+      const rows = d.type === "buffer"
+        ? `<div class="result-row"><span class="rk">Name</span>  <span class="rv">${d.name}</span></div>
+           <div class="result-row"><span class="rk">PC</span>    <span class="rv">${d.pc}</span></div>
+           <div class="result-row"><span class="rk">Type</span>  <span class="rv">Buffer</span></div>
+           <div class="result-row"><span class="rk">Status</span><span class="rv"><span class="badge-p">${d.marked}</span></span></div>`
+        : `<div class="result-row"><span class="rk">Name</span>    <span class="rv">${d.name}</span></div>
+           <div class="result-row"><span class="rk">Flash ID</span><span class="rv">${d.flashId}</span></div>
+           <div class="result-row"><span class="rk">Room</span>    <span class="rv">${d.room}</span></div>
+           <div class="result-row"><span class="rk">PC No.</span> <span class="rv">${d.pcNo}</span></div>
+           <div class="result-row"><span class="rk">Status</span><span class="rv"><span class="badge-p">${d.marked}</span></span></div>`;
+
+      const result = document.getElementById("result");
+      result.className = "result-card success";
+      result.innerHTML = `<div class="result-title">✓ &nbsp; Attendance Recorded</div><div class="result-grid">${rows}</div>`;
+      result.style.display = "block";
+      document.getElementById("flashId").value = "";
+      document.getElementById("bufferName").value = "";
+      selectedBuffer = null;
+      if (currentMode === "normal") document.getElementById("flashId").focus();
+      else document.getElementById("bufferName").focus();
+    } else {
+      showError(res.error || "Unknown error.");
+    }
+  }
+
+  function handleErr(err) { setLoading(false); showError("Network error: " + (err.message || err)); }
+
+  function setLoading(on) {
+    document.getElementById("submitBtn").style.display = on ? "none" : "block";
+    document.getElementById("spinner").style.display   = on ? "flex"  : "none";
+  }
+
   function showError(msg) {
-    const result = document.getElementById("result");
-    result.className = "result-card error";
-    result.innerHTML = `
-      <div class="result-title">✕ &nbsp; Error</div>
-      <div class="error-msg">${msg}</div>
-    `;
-    result.style.display = "block";
+    const r = document.getElementById("result");
+    r.className = "result-card error";
+    r.innerHTML = `<div class="result-title">✕ &nbsp; Error</div><div class="error-msg">${msg}</div>`;
+    r.style.display = "block";
   }
 
   window.onload = () => document.getElementById("flashId").focus();
