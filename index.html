@@ -34,7 +34,6 @@
       overflow-x: hidden;
     }
 
-    /* Background grid */
     body::before {
       content: '';
       position: fixed;
@@ -47,7 +46,6 @@
       z-index: 0;
     }
 
-    /* Glow blob */
     body::after {
       content: '';
       position: fixed;
@@ -74,7 +72,6 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* ── Header ── */
     .header {
       text-align: center;
       margin-bottom: 28px;
@@ -125,7 +122,6 @@
       font-family: var(--mono);
     }
 
-    /* ── Card ── */
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -144,7 +140,6 @@
       background: linear-gradient(90deg, transparent, rgba(14,165,233,0.4), transparent);
     }
 
-    /* ── Field ── */
     .field { margin-bottom: 20px; }
     .field:last-child { margin-bottom: 0; }
 
@@ -167,7 +162,6 @@
       border-radius: 50%;
     }
 
-    /* ── Shift buttons ── */
     .shift-group {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -199,11 +193,7 @@
       transition: opacity 0.2s;
     }
 
-    .shift-btn:hover {
-      border-color: rgba(14,165,233,0.4);
-      color: var(--accent2);
-    }
-
+    .shift-btn:hover { border-color: rgba(14,165,233,0.4); color: var(--accent2); }
     .shift-btn:hover::after { opacity: 1; }
 
     .shift-btn.active {
@@ -213,26 +203,18 @@
       box-shadow: 0 0 16px rgba(14,165,233,0.15), inset 0 0 16px rgba(14,165,233,0.05);
     }
 
-    /* ── Input ── */
-    .input-wrap {
-      position: relative;
+    /* Two-col layout for the two inputs */
+    .input-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
     }
 
-    .input-wrap .prefix {
-      position: absolute;
-      left: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-family: var(--mono);
-      font-size: 13px;
-      color: var(--accent);
-      pointer-events: none;
-      opacity: 0.6;
-    }
+    .input-wrap { position: relative; }
 
     input[type="text"] {
       width: 100%;
-      padding: 12px 14px 12px 14px;
+      padding: 12px 14px;
       background: rgba(255,255,255,0.03);
       border: 1px solid var(--border);
       border-radius: 8px;
@@ -262,7 +244,30 @@
       opacity: 0.7;
     }
 
-    /* ── Submit button ── */
+    /* Safety badge shown under inputs */
+    .safety-note {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 14px;
+      padding: 10px 14px;
+      background: rgba(14,165,233,0.05);
+      border: 1px solid rgba(14,165,233,0.12);
+      border-radius: 8px;
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.5px;
+      line-height: 1.5;
+    }
+
+    .safety-note::before {
+      content: '⚙';
+      font-size: 12px;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
     #submitBtn {
       width: 100%;
       padding: 14px;
@@ -291,21 +296,10 @@
     }
 
     #submitBtn:hover:not(:disabled)::before { left: 100%; }
-
-    #submitBtn:hover:not(:disabled) {
-      box-shadow: 0 4px 20px rgba(14,165,233,0.35);
-      transform: translateY(-1px);
-    }
-
+    #submitBtn:hover:not(:disabled) { box-shadow: 0 4px 20px rgba(14,165,233,0.35); transform: translateY(-1px); }
     #submitBtn:active:not(:disabled) { transform: translateY(0); }
+    #submitBtn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
 
-    #submitBtn:disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    /* ── Spinner ── */
     .spinner {
       display: none;
       align-items: center;
@@ -317,10 +311,7 @@
       color: var(--muted);
     }
 
-    .spin-dots {
-      display: flex;
-      gap: 4px;
-    }
+    .spin-dots { display: flex; gap: 4px; }
 
     .spin-dots span {
       width: 5px; height: 5px;
@@ -337,7 +328,6 @@
       40% { transform: scale(1); opacity: 1; }
     }
 
-    /* ── Result card ── */
     .result-card {
       display: none;
       border-radius: 12px;
@@ -386,20 +376,8 @@
       background: var(--surface);
     }
 
-    .rk {
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--muted);
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    .rv {
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--text);
-      text-align: right;
-    }
+    .rk { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+    .rv { font-family: var(--mono); font-size: 12px; color: var(--text); text-align: right; }
 
     .badge-p {
       background: rgba(34,197,94,0.15);
@@ -420,7 +398,6 @@
       line-height: 1.6;
     }
 
-    /* ── Footer ── */
     .footer {
       text-align: center;
       font-family: var(--mono);
@@ -444,6 +421,7 @@
 
   <div class="card">
 
+    <!-- Shift -->
     <div class="field">
       <label><span class="dot"></span> Shift</label>
       <div class="shift-group">
@@ -453,16 +431,30 @@
       </div>
     </div>
 
+    <!-- Flash ID + PC No. side by side -->
     <div class="field">
-      <label><span class="dot"></span> Flash ID</label>
-      <div class="input-wrap">
-        <input type="text" id="flashId"
-               placeholder="me216759@meti.ai"
-               autocomplete="off" autocorrect="off"
-               autocapitalize="none" spellcheck="false"
-               onkeydown="if(event.key==='Enter') submit()">
+      <label><span class="dot"></span> Credentials</label>
+      <div class="input-row">
+        <div class="input-wrap">
+          <input type="text" id="flashId"
+                 placeholder="me216759@meti.ai"
+                 autocomplete="off" autocorrect="off"
+                 autocapitalize="none" spellcheck="false"
+                 onkeydown="if(event.key==='Enter') document.getElementById('pcNo').focus()">
+        </div>
+        <div class="input-wrap">
+          <input type="text" id="pcNo"
+                 placeholder="PC No. (e.g. 123)"
+                 autocomplete="off" autocorrect="off"
+                 autocapitalize="none" spellcheck="false"
+                 onkeydown="if(event.key==='Enter') submit()">
+        </div>
       </div>
-      <div class="hint">// format: me + 6 digits + @meti.ai</div>
+      <div class="hint">// flash id &nbsp;·&nbsp; device number assigned to you</div>
+
+      <div class="safety-note">
+        Each Flash ID must match its assigned device. One device per person per day.
+      </div>
     </div>
 
     <button id="submitBtn" onclick="submit()">
@@ -480,7 +472,7 @@
 
   <div class="result-card" id="result"></div>
 
-  <div class="footer">METI · Attendance System v2.0</div>
+  <div class="footer">METI · Attendance System v4.0</div>
 
 </div>
 
@@ -497,6 +489,7 @@
 
   async function submit() {
     const flashId = document.getElementById("flashId").value.trim().toLowerCase();
+    const pcNo    = document.getElementById("pcNo").value.trim();
     const result  = document.getElementById("result");
     const spinner = document.getElementById("spinner");
     const btn     = document.getElementById("submitBtn");
@@ -504,8 +497,9 @@
     result.style.display = "none";
     result.className = "result-card";
 
-    if (!selectedShift) { showError("Select a shift first."); return; }
+    if (!selectedShift)  { showError("Select a shift first."); return; }
     if (!flashId)        { showError("Flash ID cannot be empty."); return; }
+    if (!pcNo)           { showError("PC number cannot be empty."); return; }
 
     btn.style.display     = "none";
     spinner.style.display = "flex";
@@ -514,7 +508,7 @@
       const res = await fetch(WEB_APP_URL, {
         method: "POST",
         headers: { "Content-Type": "text/plain" },
-        body: JSON.stringify({ shift: selectedShift, flashId }),
+        body: JSON.stringify({ flashId, pcNo }),
       });
 
       const data = await res.json();
@@ -531,13 +525,13 @@
             <div class="result-row"><span class="rk">Name</span>     <span class="rv">${d.name}</span></div>
             <div class="result-row"><span class="rk">Flash ID</span> <span class="rv">${d.flashId}</span></div>
             <div class="result-row"><span class="rk">Shift</span>    <span class="rv">${d.shift}</span></div>
-            <div class="result-row"><span class="rk">Room</span>     <span class="rv">${d.room}</span></div>
             <div class="result-row"><span class="rk">PC No.</span>   <span class="rv">${d.pcNo}</span></div>
             <div class="result-row"><span class="rk">Status</span>   <span class="rv"><span class="badge-p">${d.marked}</span></span></div>
           </div>
         `;
         result.style.display = "block";
         document.getElementById("flashId").value = "";
+        document.getElementById("pcNo").value    = "";
         document.getElementById("flashId").focus();
       } else {
         showError(data.error || "Unknown error.");
